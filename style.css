@@ -1,0 +1,994 @@
+
+/* =========================================
+   NEXUS: SECTOR CERO
+   STYLE.CSS — INTERFAZ Y ESCENARIO
+   ========================================= */
+
+:root {
+  --bg: #050914;
+  --panel: rgba(7, 16, 32, 0.92);
+  --panel-border: rgba(0, 220, 255, 0.32);
+  --cyan: #00eaff;
+  --blue: #287bff;
+  --green: #50ffb1;
+  --red: #ff405d;
+  --text: #eaf8ff;
+  --muted: #7e9aaf;
+  --font: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  overscroll-behavior: none;
+}
+
+body {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+button:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 3px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+#game {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--bg);
+  isolation: isolate;
+}
+
+/* =========================================
+   PANTALLAS
+   ========================================= */
+
+.screen {
+  position: absolute;
+  inset: 0;
+}
+
+#menu-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  background:
+    radial-gradient(ellipse at 50% 40%,
+      rgba(0, 104, 177, 0.24), transparent 55%),
+    linear-gradient(180deg, #080f21, #02040a);
+}
+
+.menu-content {
+  position: relative;
+  z-index: 2;
+  width: min(90%, 520px);
+  padding: 28px 24px;
+  text-align: center;
+}
+
+.eyebrow {
+  color: var(--cyan);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  line-height: 1.8;
+}
+
+.logo {
+  margin: 16px 0 0;
+  color: #fff;
+  font-size: clamp(64px, 17vw, 116px);
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: 8px;
+  line-height: 0.95;
+  text-shadow:
+    0 0 10px rgba(0, 234, 255, 0.8),
+    0 0 40px rgba(0, 122, 255, 0.5);
+}
+
+.subtitle {
+  margin: 16px 0 28px;
+  color: var(--cyan);
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 8px;
+}
+
+.intro {
+  max-width: 330px;
+  margin: 0 auto 32px;
+  color: #a7bfd1;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.menu-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 40px;
+  color: #506b82;
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+
+/* =========================================
+   BOTONES GENERALES
+   ========================================= */
+
+.primary-button,
+.secondary-button {
+  display: block;
+  width: 100%;
+  min-height: 50px;
+  margin: 12px 0;
+  padding: 14px 18px;
+  border: 1px solid var(--cyan);
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.primary-button {
+  color: #001019;
+  background: var(--cyan);
+  box-shadow: 0 0 20px rgba(0, 234, 255, 0.16);
+}
+
+.secondary-button {
+  color: var(--cyan);
+  background: rgba(0, 234, 255, 0.04);
+}
+
+.primary-button:hover {
+  background: #8af6ff;
+  box-shadow: 0 0 28px rgba(0, 234, 255, 0.35);
+}
+
+.secondary-button:hover {
+  background: rgba(0, 234, 255, 0.12);
+}
+
+.primary-button:active,
+.secondary-button:active {
+  transform: scale(0.98);
+}
+
+/* =========================================
+   ESCENARIO
+   ========================================= */
+
+#game-screen {
+  overflow: hidden;
+  background: #03060d;
+}
+
+#world {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  perspective: 800px;
+  background: #03060d;
+  touch-action: none;
+}
+
+#environment {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #081120;
+  transform-style: preserve-3d;
+}
+
+#sky {
+  position: absolute;
+  inset: 0 0 42%;
+  background:
+    radial-gradient(ellipse at 50% 70%,
+      rgba(0, 122, 180, 0.26), transparent 65%),
+    linear-gradient(180deg, #02050d, #0a1b2d);
+}
+
+#ceiling {
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 42%;
+  opacity: 0.55;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 95px,
+      rgba(0, 220, 255, 0.18) 97px,
+      transparent 100px
+    ),
+    linear-gradient(180deg, #07101e, #101f31);
+  clip-path: polygon(25% 0, 75% 0, 100% 100%, 0 100%);
+}
+
+#back-wall {
+  position: absolute;
+  top: 20%;
+  left: 18%;
+  width: 64%;
+  height: 43%;
+  border: 1px solid rgba(0, 234, 255, 0.18);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 78px,
+      rgba(0, 234, 255, 0.12) 80px,
+      transparent 82px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      #101e30 0,
+      #101e30 58px,
+      #14273b 60px
+    );
+  box-shadow:
+    inset 0 0 60px rgba(0, 0, 0, 0.75),
+    0 0 20px rgba(0, 180, 255, 0.08);
+}
+
+#back-wall::before {
+  content: "NEXUS // RESEARCH FACILITY";
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  width: max-content;
+  max-width: 90%;
+  transform: translateX(-50%);
+  color: rgba(0, 234, 255, 0.42);
+  font-size: clamp(8px, 1.5vw, 15px);
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+#back-wall::after {
+  content: "";
+  position: absolute;
+  top: 42%;
+  left: 35%;
+  width: 30%;
+  height: 42%;
+  border: 2px solid rgba(0, 234, 255, 0.4);
+  background:
+    linear-gradient(90deg,
+      transparent,
+      rgba(0, 234, 255, 0.12),
+      transparent);
+  box-shadow: 0 0 25px rgba(0, 234, 255, 0.12);
+}
+
+#left-wall,
+#right-wall {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 72px,
+      rgba(0, 234, 255, 0.10) 74px,
+      transparent 76px
+    ),
+    linear-gradient(180deg, #0a1524, #15253a 55%, #070d17);
+}
+
+#left-wall {
+  left: -27%;
+  transform: skewY(22deg);
+  transform-origin: top right;
+  border-right: 2px solid rgba(0, 234, 255, 0.2);
+}
+
+#right-wall {
+  right: -27%;
+  transform: skewY(-22deg);
+  transform-origin: top left;
+  border-left: 2px solid rgba(0, 234, 255, 0.2);
+}
+
+#floor {
+  position: absolute;
+  top: 52%;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  transform: perspective(300px) rotateX(52deg);
+  transform-origin: top center;
+  background:
+    linear-gradient(rgba(0, 234, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 234, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(180deg, #14263a, #03060d);
+  background-size: 50px 50px, 50px 50px, auto;
+  border-top: 2px solid rgba(0, 234, 255, 0.28);
+}
+
+#world-objects,
+#enemies-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* =========================================
+   INTERFAZ SUPERIOR
+   ========================================= */
+
+#top-hud {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 66px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--panel-border);
+  background: linear-gradient(
+    180deg,
+    rgba(3, 8, 19, 0.97),
+    rgba(3, 8, 19, 0.7)
+  );
+}
+
+.hud-brand {
+  color: var(--cyan);
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 5px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green);
+}
+
+.mission-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.hud-label {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.mission-info strong {
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.icon-button {
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--panel-border);
+  border-radius: 4px;
+  color: var(--cyan);
+  background: rgba(0, 234, 255, 0.05);
+  font-size: 16px;
+  font-weight: 900;
+}
+
+#mission-panel {
+  position: absolute;
+  z-index: 8;
+  top: 82px;
+  left: 14px;
+  width: min(250px, 65%);
+  padding: 12px 14px;
+  border-left: 2px solid var(--cyan);
+  background: rgba(3, 9, 20, 0.8);
+}
+
+#mission-objective {
+  margin: 8px 0 0;
+  color: #e0f2ff;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* =========================================
+   ESTADÍSTICAS
+   ========================================= */
+
+#player-hud {
+  position: absolute;
+  z-index: 8;
+  left: 14px;
+  bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  width: 170px;
+}
+
+.stat-card {
+  padding: 8px 10px;
+  border: 1px solid rgba(0, 234, 255, 0.18);
+  background: rgba(3, 9, 20, 0.86);
+}
+
+.stat-card strong {
+  display: block;
+  margin: 4px 0 7px;
+  font-size: 18px;
+}
+
+.bar {
+  height: 5px;
+  overflow: hidden;
+  background: #172437;
+}
+
+.bar-fill {
+  width: 100%;
+  height: 100%;
+  transition: width 0.2s ease;
+}
+
+.health-fill {
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green);
+}
+
+.energy-fill {
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+}
+
+.xp-fill {
+  background: #b47bff;
+  box-shadow: 0 0 10px #b47bff;
+}
+
+#weapon-panel {
+  position: absolute;
+  z-index: 8;
+  right: 14px;
+  bottom: 190px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 120px;
+  padding: 12px;
+  border: 1px solid var(--panel-border);
+  background: rgba(3, 9, 20, 0.86);
+}
+
+#weapon-name {
+  color: var(--cyan);
+  font-size: 13px;
+}
+
+#ammo-value {
+  color: #a7bfd1;
+  font-size: 10px;
+}
+
+/* =========================================
+   MIRA Y EFECTOS
+   ========================================= */
+
+#crosshair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 5;
+  width: 24px;
+  height: 24px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+#crosshair span {
+  position: absolute;
+  display: block;
+  background: var(--cyan);
+  box-shadow: 0 0 7px var(--cyan);
+}
+
+#crosshair span:first-child {
+  top: 11px;
+  left: 2px;
+  width: 20px;
+  height: 2px;
+}
+
+#crosshair span:last-child {
+  top: 2px;
+  left: 11px;
+  width: 2px;
+  height: 20px;
+}
+
+#damage-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 0 rgba(255, 30, 55, 0);
+  transition: box-shadow 0.15s ease;
+}
+
+#damage-overlay.active {
+  box-shadow: inset 0 0 100px 30px rgba(255, 30, 55, 0.65);
+}
+
+#scan-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  opacity: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 4px,
+    rgba(0, 234, 255, 0.12) 5px
+  );
+}
+
+#scan-overlay.active {
+  animation: scan-effect 1s ease-out;
+}
+
+@keyframes scan-effect {
+  0% {
+    opacity: 0.9;
+    background-color: rgba(0, 234, 255, 0.2);
+  }
+  100% {
+    opacity: 0;
+    background-color: transparent;
+  }
+}
+
+#notification {
+  position: absolute;
+  z-index: 20;
+  top: 36%;
+  left: 50%;
+  width: max-content;
+  max-width: 85%;
+  padding: 12px 18px;
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--cyan);
+  color: white;
+  background: rgba(3, 9, 20, 0.94);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#notification.active {
+  opacity: 1;
+}
+
+.interact-button {
+  position: absolute;
+  z-index: 15;
+  top: 57%;
+  left: 50%;
+  padding: 12px 20px;
+  transform: translateX(-50%);
+  border: 1px solid var(--cyan);
+  background: rgba(3, 9, 20, 0.94);
+  color: var(--cyan);
+}
+
+/* =========================================
+   CONTROLES TÁCTILES
+   ========================================= */
+
+#mobile-controls {
+  position: absolute;
+  z-index: 12;
+  inset: auto 0 0;
+  height: 175px;
+  pointer-events: none;
+}
+
+#movement-controls,
+#action-controls {
+  position: absolute;
+  bottom: 18px;
+  display: grid;
+  gap: 7px;
+  pointer-events: auto;
+}
+
+#movement-controls {
+  left: 14px;
+  grid-template-columns: repeat(3, 43px);
+  grid-template-rows: repeat(2, 43px);
+}
+
+.move-button {
+  border: 1px solid rgba(0, 234, 255, 0.4);
+  border-radius: 7px;
+  color: var(--cyan);
+  background: rgba(5, 20, 38, 0.88);
+  font-size: 17px;
+  touch-action: none;
+}
+
+.move-button[data-move="forward"] {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.move-button[data-move="left"] {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.move-button[data-move="backward"] {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.move-button[data-move="right"] {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+#action-controls {
+  right: 14px;
+  grid-template-columns: repeat(2, minmax(65px, 83px));
+  grid-template-rows: repeat(2, 43px);
+}
+
+.action-button {
+  padding: 5px;
+  border: 1px solid rgba(0, 234, 255, 0.4);
+  border-radius: 7px;
+  color: #d9faff;
+  background: rgba(5, 20, 38, 0.92);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  touch-action: none;
+}
+
+.fire-button {
+  color: #061019;
+  background: var(--cyan);
+}
+
+.move-button:active,
+.action-button:active,
+.move-button.active,
+.action-button.active {
+  color: white;
+  background: #126b8a;
+  box-shadow: 0 0 14px rgba(0, 234, 255, 0.35);
+}
+
+/* =========================================
+   PAUSA, MEJORAS, VICTORIA Y DERROTA
+   ========================================= */
+
+.overlay-screen {
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 20px;
+  background: rgba(1, 4, 12, 0.88);
+  backdrop-filter: blur(8px);
+}
+
+.dialog {
+  width: min(100%, 440px);
+  max-height: 90%;
+  overflow-y: auto;
+  padding: 25px;
+  border: 1px solid var(--panel-border);
+  background:
+    linear-gradient(145deg,
+      rgba(12, 28, 48, 0.98),
+      rgba(3, 8, 18, 0.98));
+  box-shadow: 0 0 45px rgba(0, 120, 255, 0.1);
+}
+
+.dialog h2 {
+  margin: 12px 0;
+  font-size: clamp(20px, 5vw, 28px);
+  letter-spacing: 2px;
+}
+
+.dialog p:not(.eyebrow) {
+  color: #9eb5c8;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.upgrade-option {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 100%;
+  margin: 10px 0;
+  padding: 15px;
+  border: 1px solid rgba(0, 234, 255, 0.25);
+  border-radius: 4px;
+  text-align: left;
+  background: rgba(0, 234, 255, 0.04);
+}
+
+.upgrade-option strong {
+  color: var(--cyan);
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.upgrade-option span {
+  color: #9eb5c8;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.upgrade-option:hover {
+  border-color: var(--cyan);
+  background: rgba(0, 234, 255, 0.12);
+}
+
+.loading-content {
+  width: min(85%, 340px);
+  text-align: center;
+}
+
+.loading-content h2 {
+  color: var(--cyan);
+  font-size: 42px;
+  letter-spacing: 8px;
+}
+
+.loading-content p {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.loading-bar {
+  height: 4px;
+  margin-top: 24px;
+}
+
+#loading-progress {
+  width: 0;
+  background: var(--cyan);
+}
+
+/* =========================================
+   OBJETOS Y ENEMIGOS CREADOS POR JAVASCRIPT
+   ========================================= */
+
+.world-object {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(0, 234, 255, 0.4);
+  background: linear-gradient(135deg, #183047, #050c16);
+  box-shadow: 0 0 15px rgba(0, 234, 255, 0.1);
+}
+
+.enemy {
+  position: absolute;
+  width: 42px;
+  height: 62px;
+  transform: translate(-50%, -50%);
+  border: 2px solid #ff405d;
+  background: linear-gradient(180deg, #7c2439, #160a16);
+  box-shadow: 0 0 20px rgba(255, 64, 93, 0.4);
+}
+
+.enemy::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 20%;
+  width: 60%;
+  height: 7px;
+  background: #ff405d;
+  box-shadow: 0 0 10px #ff405d;
+}
+
+.enemy-health {
+  position: absolute;
+  bottom: -9px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #ff405d;
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (min-width: 800px) {
+  #player-hud {
+    width: 200px;
+    bottom: 24px;
+  }
+
+  #mobile-controls {
+    height: 150px;
+  }
+
+  #movement-controls {
+    grid-template-columns: repeat(3, 52px);
+    grid-template-rows: repeat(2, 52px);
+  }
+
+  #action-controls {
+    grid-template-columns: repeat(2, 90px);
+    grid-template-rows: repeat(2, 48px);
+  }
+
+  .move-button {
+    font-size: 21px;
+  }
+
+  .action-button {
+    font-size: 10px;
+  }
+
+  #weapon-panel {
+    bottom: 190px;
+  }
+}
+
+@media (max-width: 380px) {
+  #top-hud {
+    gap: 9px;
+    padding: 8px;
+  }
+
+  .hud-brand {
+    font-size: 14px;
+  }
+
+  #mission-panel {
+    top: 76px;
+    left: 8px;
+    padding: 9px;
+  }
+
+  #player-hud {
+    left: 8px;
+    bottom: 12px;
+    width: 125px;
+    gap: 5px;
+  }
+
+  .stat-card {
+    padding: 6px;
+  }
+
+  .stat-card strong {
+    font-size: 15px;
+  }
+
+  #movement-controls {
+    left: 8px;
+    grid-template-columns: repeat(3, 36px);
+    grid-template-rows: repeat(2, 38px);
+  }
+
+  #action-controls {
+    right: 8px;
+    grid-template-columns: repeat(2, 62px);
+    grid-template-rows: repeat(2, 38px);
+  }
+
+  #weapon-panel {
+    right: 8px;
+    bottom: 170px;
+    min-width: 105px;
+    padding: 8px;
+  }
+
+  .hud-label {
+    font-size: 8px;
+  }
+
+  .menu-info {
+    font-size: 8px;
+  }
+}
+
+@media (max-height: 500px) {
+  .menu-content {
+    padding: 12px;
+  }
+
+  .logo {
+    font-size: 56px;
+  }
+
+  .subtitle {
+    margin: 8px 0 12px;
+  }
+
+  .intro {
+    margin-bottom: 12px;
+  }
+
+  .menu-info {
+    margin-top: 15px;
+  }
+
+  #player-hud {
+    bottom: 8px;
+  }
+
+  #mobile-controls {
+    height: 130px;
+  }
+
+  #movement-controls,
+  #action-controls {
+    bottom: 8px;
+  }
+
+  #mission-panel {
+    top: 72px;
+  }
+}
