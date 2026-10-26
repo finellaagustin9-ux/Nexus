@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050914">
+  <meta name="description" content="NEXUS: Sector Cero. Explora, sobrevive y descubre los secretos de una instalación tecnológica abandonada.">
+
+  <title>NEXUS: Sector Cero</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="game">
+
+    <!-- Pantalla de inicio -->
+    <section id="menu-screen" class="screen">
+      <div class="menu-content">
+        <p class="eyebrow">PROYECTO NEXUS // ARCHIVO 001</p>
+
+        <h1 class="logo">NEXUS</h1>
+        <p class="subtitle">SECTOR CERO</p>
+
+        <p class="intro">
+          La instalación perdió contacto hace 17 años.
+          Ahora, algo volvió a encenderse.
+        </p>
+
+        <button id="start-button" class="primary-button">
+          INICIAR OPERACIÓN
+        </button>
+
+        <button id="continue-button" class="secondary-button">
+          CONTINUAR PARTIDA
+        </button>
+
+        <div class="menu-info">
+          <span>VERSIÓN 1.0</span>
+          <span>SISTEMA OPERATIVO ACTIVO</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pantalla principal del juego -->
+    <section id="game-screen" class="screen hidden">
+
+      <!-- Escenario del juego -->
+      <div id="world">
+        <div id="environment">
+          <div id="sky"></div>
+          <div id="ceiling"></div>
+          <div id="back-wall"></div>
+          <div id="left-wall"></div>
+          <div id="right-wall"></div>
+          <div id="floor"></div>
+          <div id="world-objects"></div>
+          <div id="enemies-layer"></div>
+        </div>
+
+        <!-- Efectos visuales -->
+        <div id="damage-overlay"></div>
+        <div id="scan-overlay"></div>
+
+        <!-- Mira -->
+        <div id="crosshair" aria-hidden="true">
+          <span></span>
+          <span></span>
+        </div>
+
+        <!-- Mensajes -->
+        <div id="notification" role="status" aria-live="polite"></div>
+
+        <!-- Interacción -->
+        <button id="interact-button" class="interact-button hidden">
+          INTERACTUAR
+        </button>
+      </div>
+
+      <!-- Interfaz del jugador -->
+      <header id="top-hud">
+        <div class="hud-brand">
+          <span class="status-dot"></span>
+          NEXUS
+        </div>
+
+        <div class="mission-info">
+          <span class="hud-label">OPERACIÓN ACTUAL</span>
+          <strong id="mission-title">DESPERTAR</strong>
+        </div>
+
+        <button id="pause-button" class="icon-button"
+                aria-label="Pausar juego">
+          ||
+        </button>
+      </header>
+
+      <div id="mission-panel">
+        <span class="hud-label">OBJETIVO</span>
+        <p id="mission-objective">
+          Explora la instalación.
+        </p>
+      </div>
+
+      <!-- Estado del jugador -->
+      <div id="player-hud">
+        <div class="stat-card">
+          <span class="hud-label">INTEGRIDAD</span>
+          <strong id="health-value">100</strong>
+          <div class="bar">
+            <div id="health-bar" class="bar-fill health-fill"></div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <span class="hud-label">ENERGÍA</span>
+          <strong id="energy-value">100</strong>
+          <div class="bar">
+            <div id="energy-bar" class="bar-fill energy-fill"></div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <span class="hud-label">EXPERIENCIA</span>
+          <strong id="xp-value">0 XP</strong>
+          <div class="bar">
+            <div id="xp-bar" class="bar-fill xp-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Información del arma -->
+      <div id="weapon-panel">
+        <span class="hud-label">ARMA EQUIPADA</span>
+        <strong id="weapon-name">PULSO MK-I</strong>
+        <span id="ammo-value">∞ CARGA</span>
+      </div>
+
+      <!-- Controles táctiles para móviles -->
+      <div id="mobile-controls">
+
+        <div id="movement-controls" aria-label="Movimiento">
+          <button class="move-button" data-move="forward"
+                  aria-label="Avanzar">▲</button>
+
+          <button class="move-button" data-move="left"
+                  aria-label="Mover a la izquierda">◀</button>
+
+          <button class="move-button" data-move="backward"
+                  aria-label="Retroceder">▼</button>
+
+          <button class="move-button" data-move="right"
+                  aria-label="Mover a la derecha">▶</button>
+        </div>
+
+        <div id="action-controls">
+          <button id="fire-button" class="action-button fire-button">
+            DISPARAR
+          </button>
+
+          <button id="shield-button" class="action-button">
+            ESCUDO
+          </button>
+
+          <button id="sprint-button" class="action-button">
+            ACELERAR
+          </button>
+
+          <button id="scan-button" class="action-button">
+            ESCANEAR
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Pausa -->
+    <section id="pause-screen" class="screen overlay-screen hidden">
+      <div class="dialog">
+        <p class="eyebrow">SISTEMA NEXUS</p>
+        <h2>OPERACIÓN PAUSADA</h2>
+        <p>El tiempo de la misión está detenido.</p>
+
+        <button id="resume-button" class="primary-button">
+          CONTINUAR
+        </button>
+
+        <button id="save-button" class="secondary-button">
+          GUARDAR PARTIDA
+        </button>
+
+        <button id="exit-button" class="secondary-button">
+          VOLVER AL MENÚ
+        </button>
+      </div>
+    </section>
+
+    <!-- Pantalla de mejoras -->
+    <section id="upgrade-screen" class="screen overlay-screen hidden">
+      <div class="dialog">
+        <p class="eyebrow">CENTRO DE DESARROLLO</p>
+        <h2>MEJORAS TECNOLÓGICAS</h2>
+        <p>Selecciona una mejora para tu equipo.</p>
+
+        <div id="upgrade-list">
+          <button class="upgrade-option" data-upgrade="health">
+            <strong>REFUERZO ESTRUCTURAL</strong>
+            <span>Aumenta la integridad máxima.</span>
+          </button>
+
+          <button class="upgrade-option" data-upgrade="energy">
+            <strong>NÚCLEO DE ENERGÍA</strong>
+            <span>Aumenta la energía máxima.</span>
+          </button>
+
+          <button class="upgrade-option" data-upgrade="damage">
+            <strong>AMPLIFICADOR DE PULSO</strong>
+            <span>Mejora el daño del arma.</span>
+          </button>
+        </div>
+
+        <button id="close-upgrades-button" class="secondary-button">
+          VOLVER AL JUEGO
+        </button>
+      </div>
+    </section>
+
+    <!-- Victoria -->
+    <section id="victory-screen" class="screen overlay-screen hidden">
+      <div class="dialog">
+        <p class="eyebrow">MISIÓN COMPLETADA</p>
+        <h2>SECTOR ASEGURADO</h2>
+        <p>Has completado los objetivos de esta operación.</p>
+
+        <div id="victory-stats"></div>
+
+        <button id="victory-continue-button" class="primary-button">
+          CONTINUAR
+        </button>
+
+        <button id="victory-menu-button" class="secondary-button">
+          VOLVER AL MENÚ
+        </button>
+      </div>
+    </section>
+
+    <!-- Derrota -->
+    <section id="game-over-screen" class="screen overlay-screen hidden">
+      <div class="dialog">
+        <p class="eyebrow">SEÑAL PERDIDA</p>
+        <h2>OPERACIÓN INTERRUMPIDA</h2>
+        <p>La unidad necesita reiniciar el sistema.</p>
+
+        <button id="retry-button" class="primary-button">
+          REINTENTAR
+        </button>
+
+        <button id="game-over-menu-button" class="secondary-button">
+          VOLVER AL MENÚ
+        </button>
+      </div>
+    </section>
+
+    <!-- Pantalla de carga -->
+    <section id="loading-screen" class="screen overlay-screen hidden">
+      <div class="loading-content">
+        <h2>NEXUS</h2>
+        <p id="loading-message">INICIALIZANDO SISTEMAS...</p>
+        <div class="bar loading-bar">
+          <div id="loading-progress" class="bar-fill"></div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Lógica principal del juego -->
+  <script src="game.js" defer></script>
+</body>
+</html>
